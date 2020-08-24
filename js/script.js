@@ -5,8 +5,8 @@ if ( 'undefined' === typeof wooSkuRequired ) {
 }
 
 jQuery( function( $ ) {
-	var $form  = $( 'form#post' ),
-		errors = [];
+	wooSkuRequired.form   = $( 'form#post' );
+	wooSkuRequired.errors = [];
 
 	$form.on( 'submit', function( e ) {
 		if ( true === wooSkuRequired.validate_sku() ) {
@@ -17,9 +17,9 @@ jQuery( function( $ ) {
 	} );
 
 	wooSkuRequired.validate_sku = function() {
-		var $main_sku     = $form.find( 'input#_sku' ),
-			$variable_sku = $form.find( 'input[id^=variable_sku]' ),
-			product_type  = $form.find( '#product-type' ).val(),
+		var $main_sku     = wooSkuRequired.form.find( 'input#_sku' ),
+			$variable_sku = wooSkuRequired.form.find( 'input[id^=variable_sku]' ),
+			product_type  = wooSkuRequired.form.find( '#product-type' ).val(),
 			valid = false;
 
 		wooSkuRequired.clear_errors();
@@ -30,7 +30,7 @@ jQuery( function( $ ) {
 				var $element = $( element );
 				if ( ! $element.val().length ) {
 					var id = $element.parents( '.woocommerce_variation' ).find( 'input[name^=variable_post_id]' ).val();
-					errors.push( {
+					wooSkuRequired.errors.push( {
 						id: 'sku_' + id,
 						message: '#' + id + ': ' + wooSkuRequired.__required
 					} );
@@ -39,14 +39,14 @@ jQuery( function( $ ) {
 		} else {
 			// Simple product.
 			if ( ! $main_sku.val().length ) {
-				errors.push( {
+				wooSkuRequired.errors.push( {
 					id: 'sku_0',
 					message: wooSkuRequired.__required
 				} );
 			}
 		}
 
-		if ( ! errors.length ) {
+		if ( ! wooSkuRequired.errors.length ) {
 			valid = true;
 		} else {
 			wooSkuRequired.show_errors();
@@ -56,10 +56,10 @@ jQuery( function( $ ) {
 	}
 
 	wooSkuRequired.clear_errors = function( error ) {
-		$.each ( errors, function( index, error ) {
+		$.each ( wooSkuRequired.errors, function( index, error ) {
 			wooSkuRequired.remove_error( error.id );
 		} );
-		errors = [];
+		wooSkuRequired.errors = [];
 	}
 
 	wooSkuRequired.remove_error = function( error_id ) {
@@ -67,10 +67,10 @@ jQuery( function( $ ) {
 	}
 
 	wooSkuRequired.show_errors = function() {
-		$.each ( errors, function( index, error ) {
+		$.each ( wooSkuRequired.errors, function( index, error ) {
 			error.message += '<button type="button" class="notice-dismiss"></button>';
 			error.message = '<div id="' + error.id + '" class="notice error is-dismissible"><p>' + error.message + '</p></div>';
-			$form.before( error.message );
+			wooSkuRequired.form.before( error.message );
 
 			$( '#' + error.id + ' .notice-dismiss' ).on( 'click', function() {
 				wooSkuRequired.remove_error( error.id );
