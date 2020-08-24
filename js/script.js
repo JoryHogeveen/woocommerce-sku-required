@@ -21,11 +21,13 @@ jQuery( function( $ ) {
 		return false;
 	} );
 
+	/**
+	 * @return {boolean}
+	 */
 	wooSkuRequired.validate_sku = function() {
 		var $main_sku     = wooSkuRequired.form.find( 'input#_sku' ),
 			$variable_sku = wooSkuRequired.form.find( 'input[id^=variable_sku]' ),
-			product_type  = wooSkuRequired.form.find( '#product-type' ).val(),
-			valid         = false;
+			product_type  = wooSkuRequired.form.find( '#product-type' ).val();
 
 		wooSkuRequired.clear_errors();
 
@@ -35,7 +37,7 @@ jQuery( function( $ ) {
 				// No main SKU, variable SKU required.
 				$.each( $variable_sku, function ( index, element ) {
 					var $element = $( element );
-					if ( !$element.val().length ) {
+					if ( ! $element.val().length ) {
 						var id = $element.parents( '.woocommerce_variation' ).find( 'input[name^=variable_post_id]' ).val();
 						wooSkuRequired.errors.push( {
 							id: 'sku_' + id,
@@ -54,15 +56,17 @@ jQuery( function( $ ) {
 			}
 		}
 
-		if ( ! wooSkuRequired.errors.length ) {
-			valid = true;
-		} else {
+		if ( wooSkuRequired.errors.length ) {
 			wooSkuRequired.show_errors();
+			return false;
 		}
-
-		return valid;
+		return true;
 	}
 
+	/**
+	 * @param {object} error
+	 * @return void
+	 */
 	wooSkuRequired.clear_errors = function( error ) {
 		$.each ( wooSkuRequired.errors, function( index, error ) {
 			wooSkuRequired.remove_error( error.id );
@@ -70,10 +74,17 @@ jQuery( function( $ ) {
 		wooSkuRequired.errors = [];
 	}
 
+	/**
+	 * @param {string} error_id
+	 * @return void
+	 */
 	wooSkuRequired.remove_error = function( error_id ) {
 		$( '#' + error_id ).slideUp( 'fast', function() { $(this).remove(); } );
 	}
 
+	/**
+	 * @return void
+	 */
 	wooSkuRequired.show_errors = function() {
 		$.each ( wooSkuRequired.errors, function( index, error ) {
 			error.message += '<button type="button" class="notice-dismiss"></button>';

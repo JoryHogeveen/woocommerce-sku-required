@@ -58,7 +58,7 @@ class WooCommerce_SKU_Required
 		}
 		$url = plugin_dir_url( __FILE__ );
 
-		wp_enqueue_script( 'woocommerce-sku-required', $url .'js/script.js', array( 'jquery' ), self::VERSION, true );
+		wp_enqueue_script( 'woocommerce-sku-required', $url . 'js/script.js', array( 'jquery' ), self::VERSION, true );
 
 		$l10n = array(
 			'__required' => __( 'SKU field is required', 'woocommerce-sku-required' ),
