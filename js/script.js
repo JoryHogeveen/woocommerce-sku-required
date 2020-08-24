@@ -1,3 +1,7 @@
+/**
+ * @author Jory Hogeveen
+ * @version 1.0.1
+ */
 
 if ( 'undefined' === typeof wooSkuRequired ) {
 	wooSkuRequired = {

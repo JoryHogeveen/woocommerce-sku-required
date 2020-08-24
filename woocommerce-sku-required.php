@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WooCommerce SKU Required
  * Description: Make the WooCommerce SKU field required.
- * Version:     1.0
+ * Version:     1.0.1
  * Author:      Jory Hogeveen
  * Author URI:  https://www.keraweb.nl
  * Text Domain: woocommerce-sku-required
