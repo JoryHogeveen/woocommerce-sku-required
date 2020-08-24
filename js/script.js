@@ -1,3 +1,4 @@
+
 if ( 'undefined' === typeof wooSkuRequired ) {
 	wooSkuRequired = {
 		__required: 'SKU field is required',
@@ -20,22 +21,25 @@ jQuery( function( $ ) {
 		var $main_sku     = wooSkuRequired.form.find( 'input#_sku' ),
 			$variable_sku = wooSkuRequired.form.find( 'input[id^=variable_sku]' ),
 			product_type  = wooSkuRequired.form.find( '#product-type' ).val(),
-			valid = false;
+			valid         = false;
 
 		wooSkuRequired.clear_errors();
 
 		if ( $variable_sku.length || 'variable' === product_type ) {
 			// Variable product.
-			$.each( $variable_sku, function( index, element ) {
-				var $element = $( element );
-				if ( ! $element.val().length ) {
-					var id = $element.parents( '.woocommerce_variation' ).find( 'input[name^=variable_post_id]' ).val();
-					wooSkuRequired.errors.push( {
-						id: 'sku_' + id,
-						message: '#' + id + ': ' + wooSkuRequired.__required
-					} );
-				}
-			} );
+			if ( ! $main_sku.val().length ) {
+				// No main SKU, variable SKU required.
+				$.each( $variable_sku, function ( index, element ) {
+					var $element = $( element );
+					if ( !$element.val().length ) {
+						var id = $element.parents( '.woocommerce_variation' ).find( 'input[name^=variable_post_id]' ).val();
+						wooSkuRequired.errors.push( {
+							id: 'sku_' + id,
+							message: '#' + id + ': ' + wooSkuRequired.__required
+						} );
+					}
+				} );
+			}
 		} else {
 			// Simple product.
 			if ( ! $main_sku.val().length ) {
