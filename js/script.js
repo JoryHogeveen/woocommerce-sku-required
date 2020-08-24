@@ -9,7 +9,7 @@ jQuery( function( $ ) {
 	wooSkuRequired.form   = $( 'form#post' );
 	wooSkuRequired.errors = [];
 
-	$form.on( 'submit', function( e ) {
+	wooSkuRequired.form.on( 'submit', function( e ) {
 		if ( true === wooSkuRequired.validate_sku() ) {
 			return true;
 		}
