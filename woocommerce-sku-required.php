@@ -1,14 +1,14 @@
 <?php
 /**
- * Plugin Name: WooCommerce SKU Required
- * Description: Make the WooCommerce SKU field required.
- * Version:     2.0
- * Author:      Jory Hogeveen
- * Author URI:  https://www.keraweb.nl
- * Text Domain: woocommerce-sku-required
- * License:     GNU General Public License v3.0
- * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * Plugin Name:       WooCommerce SKU Required
+ * Description:       Make the WooCommerce SKU field required.
+ * Version:           2.0.1
+ * Author:            Jory Hogeveen
+ * Author URI:        https://www.keraweb.nl
+ * Text Domain:       woocommerce-sku-required
  * GitHub Plugin URI: JoryHogeveen/woocommerce-sku-required
+ * License:           GNU General Public License v3.0
+ * License URI:       http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 if ( ! defined ( 'ABSPATH' ) ) {
@@ -22,7 +22,7 @@ class WooCommerce_SKU_Required
 	/**
 	 * @var float
 	 */
-	const VERSION = '2.0';
+	const VERSION = '2.0.1';
 
 	/**
 	 * @var string
