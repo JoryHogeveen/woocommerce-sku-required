@@ -212,6 +212,9 @@ jQuery( function( $ ) {
 				wooSkuRequired.remove_error( error.id );
 			} );
 		} );
+
+		// Scroll to errors.
+		document.getElementById( wooSkuRequired.errors[0].id ).scrollIntoView();
 	}
 
 	/**
