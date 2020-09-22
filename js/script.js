@@ -214,7 +214,7 @@ jQuery( function( $ ) {
 		} );
 
 		// Scroll to errors.
-		document.getElementById( wooSkuRequired.errors[0].id ).scrollIntoView();
+		document.getElementById( wooSkuRequired.errors[0].id ).scrollIntoView( { behavior: 'smooth', block: 'center' } );
 	}
 
 	/**
