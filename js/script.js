@@ -21,6 +21,11 @@ jQuery( function( $ ) {
 
 	// Save product.
 	wooSkuRequired.$form.on( 'submit', function( e ) {
+		// Drafts are allowed.
+		if ( 'save' === document.activeElement.getAttribute( 'name' ) ) {
+			return true;
+		}
+
 		wooSkuRequired.disableSubmit();
 
 		wooSkuRequired.$error_target = wooSkuRequired.$form;
