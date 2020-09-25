@@ -151,8 +151,9 @@ jQuery( function( $ ) {
 	 * @return {boolean}
 	 */
 	wooSkuRequired.validate_sku = function() {
-		var main_sku     = wooSkuRequired.$form.find( 'input#_sku' ).val(),
-			product_type = wooSkuRequired.$form.find( '#product-type' ).val();
+		var main_sku      = wooSkuRequired.$form.find( 'input#_sku' ).val(),
+			product_type  = wooSkuRequired.$form.find( '#product-type' ).val(),
+			$variable_sku = wooSkuRequired.$form.find( 'input[id^=variable_sku]' );
 
 		if ( ! wooSkuRequired.is_required() ) {
 			wooSkuRequired.debug( 'SKU not required' );
@@ -167,6 +168,17 @@ jQuery( function( $ ) {
 		}
 
 		if ( 'variable' === product_type ) {
+
+			// Store latest changes.
+			$.each( $variable_sku, function ( index, element ) {
+				var $element = $( element ),
+					val      = $element.val(),
+					id       = $element.parents( '.woocommerce_variation' ).find( 'input[name^=variable_post_id]' ).val();
+				if ( id ) {
+					wooSkuRequired.variations[ id ] = val;
+				}
+			} );
+
 			// Variable product.
 			$.each( wooSkuRequired.variations, function ( id, sku ) {
 				if ( ! sku.length ) {
