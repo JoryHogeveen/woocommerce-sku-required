@@ -21,9 +21,19 @@ jQuery( function( $ ) {
 
 	// Save product.
 	wooSkuRequired.$form.on( 'submit', function( e ) {
+		wooSkuRequired.debug( e );
+
 		// Drafts are allowed.
-		if ( 'save' === document.activeElement.getAttribute( 'name' ) ) {
+		var name = document.activeElement.getAttribute( 'name' );
+		if ( name && 'save' === name ) {
+			wooSkuRequired.debug('Save Draft detected by active element');
 			return true;
+		} else if ( e.hasOwnProperty( 'originalEvent' ) ) {
+			name = e.originalEvent.submitter.name;
+			if ( 'save' === name ) {
+				wooSkuRequired.debug('Save Draft detected by event');
+				return true;
+			}
 		}
 
 		wooSkuRequired.disableSubmit();
